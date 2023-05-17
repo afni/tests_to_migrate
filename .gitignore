@@ -12,13 +12,8 @@ ___*
 .*.swp
 
 #Datasets
-*.nii*
-*.BRIK*
-*.HEAD*
-*.gii*
-*.dset*
-*.niml
-*.1D
+
+
 
 #R Hidden files
 *.Rout
