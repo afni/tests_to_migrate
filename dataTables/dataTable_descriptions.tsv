@@ -1,0 +1,6 @@
+filename	num_subj	ws_bs	good_bad	why	notes
+test1_good.tsv	11	bs	good	NA	NA
+test1_good.csv	11	bs	good	NA	csv version does not work because gang
+test1_bad_not_rect.tsv	11	bs	bad	missing 3 entries	missing entries line 4 8 10 but has tab delimiters entact
+test1_good_warnings.tsv	11	bs	warnings	outliers and factors	Subj has numerics. Score and rt have outliers. Handedness has 1 alpha character.
+test1_bad_file.tsv	11	bs	bad	missing input files	spelling error in for input file lines 1 and 10
