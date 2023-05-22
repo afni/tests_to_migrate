@@ -23,3 +23,5 @@ used to run (regression) testing on AFNI programs.  Most details are TBD.
   run_all_scripts.tcsh (or bash or txt)
   
     - this script could be used to run all sub-scripts
+
+- please have some descriptor file in the data_LABEL folders
