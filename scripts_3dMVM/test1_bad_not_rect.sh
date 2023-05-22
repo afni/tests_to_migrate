@@ -16,4 +16,4 @@ OutFile='test1_bad_not_rect'
 -jobs 10 \
 -bsVars "group*group2" \
 -qVars "score,rt" \
--dataTable @dataTables/test1_bad_not_rect.tsv
+-dataTable @dataTables/${OutFile}.tsv

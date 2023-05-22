@@ -16,4 +16,4 @@ OutFile='test1_good_warnings'
 -jobs 10 \
 -bsVars "group*group2" \
 -qVars "score,rt" \
--dataTable @dataTables/test1_good_warnings.tsv
+-dataTable @dataTables/${OutFile}.tsv
