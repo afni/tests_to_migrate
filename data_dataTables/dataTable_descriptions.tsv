@@ -10,3 +10,4 @@ test1_bad_grid2.tsv	11	bs	bad	2 different grids	row 2 and 9 have 1mm grid spacin
 test1_bad_multi_vol_grid.tsv	11	bs	bad	multi vol and grid	1 and 9 multi vol. 2 and 10 bad grid
 test1_bad_dup_InputFiles.tsv	11	bs	bad	2 dsets duplicated	2 is duped once, 8 is duped twice
 test1_bad_InputFile_misspelled.tsv	11	bs	bad	InputFile column misspelled	
+test1_bad_subj_dup.tsv	11	bs	bad	1 subject has multiple entries	should be 1 InputFile per subject
