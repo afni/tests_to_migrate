@@ -11,6 +11,9 @@ cd ${BaseFolder}
 
 OutFile='test1_bad_multi_vol'
 
+## remove log file
+rm ${OutFolder}/${OutFile}_log.txt
+
 3dMVM -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \
 -jobs 10 \
