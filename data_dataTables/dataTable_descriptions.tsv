@@ -14,4 +14,5 @@ test1_bad_subj_dup.tsv	11	bs	bad	1 subject has multiple entries	should be 1 Inpu
 test2_good.tsv	11	ws	good	NA	NA
 test2_good_1_num.tsv	11	ws	good	only 1 numeric column	code testing
 test2_good_no_num.tsv	11	ws	good	no numeric columns	code testing
-test1_bad_Subj_misspelled.tsv	11	bs	bad	Subj column misspelled	
+test1_bad_Subj_misspelled.tsv	11	bs	bad	Subj column misspelled	NA
+test1_good_cmd.sh	11	bs	good	command line version	no data table. with slashes
