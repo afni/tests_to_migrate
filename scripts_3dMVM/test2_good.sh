@@ -9,7 +9,8 @@ BaseFolder='../'
 OutFolder='results'
 cd ${BaseFolder}
 
-OutFile='test2_good'
+OutFile='test2_good_MVM'
+InFile='test2_good'
 
 ## remove log file
 rm ${OutFolder}/${OutFile}_log.txt
@@ -20,4 +21,4 @@ rm ${OutFolder}/${OutFile}_log.txt
 -bsVars "group_bs" \
 -wsVars "group_ws" \
 -qVars "score,rt" \
--dataTable @dataTables/${OutFile}.tsv
+-dataTable @dataTables/${InFile}.tsv
