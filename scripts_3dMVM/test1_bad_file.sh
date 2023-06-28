@@ -9,7 +9,8 @@ BaseFolder='../'
 OutFolder='results'
 cd ${BaseFolder}
 
-OutFile='test1_bad_file'
+OutFile='test1_bad_file_3dMVM'
+InFile='test1_bad_file'
 
 ## remove log file
 rm ${OutFolder}/${OutFile}_log.txt
@@ -19,4 +20,4 @@ rm ${OutFolder}/${OutFile}_log.txt
 -jobs 10 \
 -bsVars "group*group2" \
 -qVars "score,rt" \
--dataTable @dataTables/${OutFile}.tsv
+-dataTable @dataTables/${InFile}.tsv
