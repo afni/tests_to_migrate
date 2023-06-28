@@ -2,7 +2,7 @@
 
 ##################################
 ## 05/2023 Justin Rajendra
-## 3dMVM testing
+## 3dLMEr testing
 
 ## where is everything?
 BaseFolder='../'
@@ -19,5 +19,5 @@ rm ${OutFolder}/${OutFile}_log.txt
 -prefix ${OutFolder}/${OutFile}.nii.gz \
 -jobs 10 \
 -model "group_ws+(1|Subj)" \
--qVars "score,rt" \
+-qVars "score" \
 -dataTable @dataTables/${InFile}.tsv
