@@ -9,10 +9,9 @@ BaseFolder='../'
 OutFolder='results'
 cd ${BaseFolder}
 
-OutFile='test2_warn_files_per_subj'
-
-## remove log file
-rm ${OutFolder}/${OutFile}_log.txt
+## prefix
+OutFile='test2_warn_files_per_subj_MVM'
+InFile='test2_warn_files_per_subj'
 
 3dMVM -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \
@@ -20,4 +19,4 @@ rm ${OutFolder}/${OutFile}_log.txt
 -bsVars "group_bs" \
 -wsVars "group_ws" \
 -qVars "score,rt" \
--dataTable @dataTables/${OutFile}.tsv
+-dataTable @dataTables/${InFile}.tsv

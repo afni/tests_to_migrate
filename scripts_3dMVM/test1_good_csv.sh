@@ -3,17 +3,16 @@
 ##################################
 ## 05/2023 Justin Rajendra
 ## 3dMVM testing (csv version)
-## does not work
+## does not work (not supposed to work)
 
 ## where is everything?
 BaseFolder='../'
 OutFolder='results'
 cd ${BaseFolder}
 
-OutFile='test1_good'
-
-## remove log file
-rm ${OutFolder}/${OutFile}_log.txt
+## prefix
+OutFile='test1_good_csv_MVM'
+InFile='test1_good'
 
 3dMVM -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \

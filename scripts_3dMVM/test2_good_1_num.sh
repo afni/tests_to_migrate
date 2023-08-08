@@ -9,10 +9,9 @@ BaseFolder='../'
 OutFolder='results'
 cd ${BaseFolder}
 
-OutFile='test2_good_1_num'
-
-## remove log file
-rm ${OutFolder}/${OutFile}_log.txt
+## prefix
+OutFile='test2_good_1_num_MVM'
+InFile='test2_good_1_num'
 
 3dMVM -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \
@@ -20,4 +19,4 @@ rm ${OutFolder}/${OutFile}_log.txt
 -bsVars "group_bs" \
 -wsVars "group_ws" \
 -qVars "score" \
--dataTable @dataTables/${OutFile}.tsv
+-dataTable @dataTables/${InFile}.tsv

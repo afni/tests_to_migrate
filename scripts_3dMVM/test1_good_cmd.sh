@@ -9,10 +9,7 @@ BaseFolder='../'
 OutFolder='results'
 cd ${BaseFolder}
 
-OutFile='test1_good_cmd'
-
-## remove log file
-rm ${OutFolder}/${OutFile}_log.txt
+OutFile='test1_good_cmd_MVM'
 
 3dMVM -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \
