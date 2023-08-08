@@ -11,7 +11,7 @@ cd ${BaseFolder}
 
 OutFile='test2_good_cmd_LME'
 
-3dLMEr -overwrite \
+3dLME -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \
 -jobs 10 \
 -model "group_ws" \
