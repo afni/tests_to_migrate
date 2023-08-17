@@ -1,4 +1,4 @@
-Subj	score	group_bs	group_ws	rt	consented	handedness	InputFile
+Peeps	score	group_bs	group_ws	rt	consented	handedness	niftiis
 subj-0044	1	A	A	-10.0045	TRUE	1	subjects/subj-0044.rest.cg25.3mm.nii.gz
 subj-0044	2	A	B	11.0045	TRUE	1	subjects/subj-0044.rest.ins.3mm.nii.gz
 subj-0046	3	B	A	12.0045	FALSE	2	subjects/subj-0046.rest.cg25.3mm.nii.gz
