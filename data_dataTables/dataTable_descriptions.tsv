@@ -15,6 +15,7 @@ test1_good_warnings.tsv	11	bs	warnings	outliers and factors	Subj has numerics. S
 test1_good.csv	11	bs	good	NA	csv version does not work because gang
 test1_good.tsv	11	bs	good	NA	NA
 test2_good_1_num.tsv	11	ws	good	only 1 numeric column	code testing
+test2_good_1_num.tsv	11	ws	good	only 1 numeric column	code testing 5x5x5 version
 test2_good_no_num.tsv	11	ws	good	no numeric columns	code testing
 test2_good_no_num_5x5x5.tsv	11	ws	good	no numeric columns	code testing same but with the 5x5x5 data 
 test2_good.tsv	11	ws	good	NA	NA
