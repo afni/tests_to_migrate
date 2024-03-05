@@ -10,8 +10,8 @@ OutFolder='results'
 cd ${BaseFolder}
 
 ## prefix
-OutFile='test2_good_MVM_5x5'
-InFile='test2_good_5x5'
+OutFile='test2_good_MVM_5x5x5'
+InFile='test2_good_5x5x5'
 
 3dMVM -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \
@@ -19,4 +19,4 @@ InFile='test2_good_5x5'
 -bsVars "group_bs" \
 -wsVars "group_ws" \
 -qVars "score,rt" \
--dataTable @data_dataTables_5x5/${InFile}.tsv
+-dataTable @data_dataTables/${InFile}.tsv
