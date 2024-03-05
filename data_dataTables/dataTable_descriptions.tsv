@@ -18,5 +18,6 @@ test2_good_no_num.tsv	11	ws	good	no numeric columns	code testing
 test2_good_no_num_5x5x5.tsv	11	ws	good	no numeric columns	code testing same but with the 5x5x5 data 
 test2_good.tsv	11	ws	good	NA	NA
 test2_good_5x5x5.tsv	11	ws	good	NA	same but with the 5x5x5 data
-test2_warn_files_per_subj.tsv	11	ws	warnings *	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end.
+test2_warn_files_per_subj.tsv	11	ws	warnings *	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end?
+test2_warn_files_per_subj.tsv	11	ws	warnings *	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end? 5X5x5 version
 test2_good_3dICC_var_names.tsv	11	ws	good	different column names 	Subj and InputFile are renamed for 3dICC testing
