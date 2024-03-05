@@ -2,6 +2,7 @@ filename	num_subj	ws_bs	good_bad	why	notes
 test1_bad_dup_InputFiles.tsv	11	bs	bad	2 dsets duplicated	2 is duped once, 8 is duped twice
 test1_bad_file.tsv	11	bs	bad	missing input files	spelling error in for input file lines 1 and 10
 test1_bad_grid.tsv	11	bs	bad	2 different grids	row 1 and 9 have 1mm grid spacing everything else has 3mm
+test1_bad_grid_5x5x5.tsv	11	bs	bad	2 different grids	row 1 and 9 have 1mm grid spacing everything else has 3mm 5x5x5 version
 test1_bad_grid2.tsv	11	bs	bad	2 different grids	row 2 and 9 have 1mm grid spacing everything else has 3mm
 test1_bad_InputFile_misspelled.tsv	11	bs	bad	InputFile column misspelled	NA
 test1_bad_multi_vol_grid.tsv	11	bs	bad	multi vol and grid	1 and 9 multi vol. 2 and 10 bad grid
