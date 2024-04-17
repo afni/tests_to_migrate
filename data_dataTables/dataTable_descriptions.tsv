@@ -1,26 +1,28 @@
 filename	num_subj	ws_bs	good_bad	why	notes
 test1_bad_dup_InputFiles.tsv	11	bs	bad	2 dsets duplicated	2 is duped once, 8 is duped twice
 test1_bad_file.tsv	11	bs	bad	missing input files	spelling error in for input file lines 1 and 10
-test1_bad_grid.tsv	11	bs	bad	2 different grids	row 1 and 9 have 1mm grid spacing everything else has 3mm
 test1_bad_grid_5x5x5.tsv	11	bs	bad	2 different grids	row 1 and 9 have 1mm grid spacing everything else has 3mm 5x5x5 version
+test1_bad_grid.tsv	11	bs	bad	2 different grids	row 1 and 9 have 1mm grid spacing everything else has 3mm
 test1_bad_grid2.tsv	11	bs	bad	2 different grids	row 2 and 9 have 1mm grid spacing everything else has 3mm
 test1_bad_InputFile_misspelled.tsv	11	bs	bad	InputFile column misspelled	NA
 test1_bad_multi_vol_grid.tsv	11	bs	bad	multi vol and grid	1 and 9 multi vol. 2 and 10 bad grid
 test1_bad_multi_vol.tsv	11	bs	bad	2 multi-volume dsets	row 1 and 9 have 2 volumes in the InputFIle data set
 test1_bad_not_rect.tsv	11	bs	bad	missing 3 entries	missing entries line 4 8 10 but has tab delimiters entact
-test1_warn_subj_dup.tsv	11	bs	warnings *	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end
 test1_bad_Subj_misspelled.tsv	11	bs	bad	Subj column misspelled	NA
 test1_good_cmd.sh	11	bs	good	command line version	no data table. with slashes
 test1_good_warnings.tsv	11	bs	warnings	outliers and factors	Subj has numerics. Score and rt have outliers. Handedness has 1 alpha character.
-test1_good.csv	11	bs	good	NA	csv version does not work because gang
 test1_good.tsv	11	bs	good	NA	NA
+test1_warn_subj_dup.tsv	11	bs	warnings *	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end
+test1_warn_with_spaces.csv	11	bs	warnings	should fail	the comma space gives different elements
+test1_warn_with_spaces.tsv	11	bs	warnings	should fail	CSV but labeled as TSV
+test1_warn.csv	11	bs	warnings	should fail	csv version does not work because gang
 test2_good_1_num.tsv	11	ws	good	only 1 numeric column	code testing
 test2_good_1_num.tsv	11	ws	good	only 1 numeric column	code testing 5x5x5 version
-test2_good_no_num.tsv	11	ws	good	no numeric columns	code testing
-test2_good_no_num_5x5x5.tsv	11	ws	good	no numeric columns	code testing same but with the 5x5x5 data 
-test2_good.tsv	11	ws	good	NA	NA
-test2_good_5x5x5.tsv	11	ws	good	NA	same but with the 5x5x5 data
+test2_good_3dICC_var_names.tsv	11	ws	good	different column names 	Subj and InputFile are renamed for 3dICC testing
 test2_good_5x5x5_brik_sel.tsv	11	ws	good	NA	has sub brick selector
+test2_good_5x5x5.tsv	11	ws	good	NA	same but with the 5x5x5 data
+test2_good_no_num_5x5x5.tsv	11	ws	good	no numeric columns	code testing same but with the 5x5x5 data 
+test2_good_no_num.tsv	11	ws	good	no numeric columns	code testing
+test2_good.tsv	11	ws	good	NA	NA
 test2_warn_files_per_subj.tsv	11	ws	warnings *	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end?
 test2_warn_files_per_subj.tsv	11	ws	warnings *	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end? 5X5x5 version
-test2_good_3dICC_var_names.tsv	11	ws	good	different column names 	Subj and InputFile are renamed for 3dICC testing
