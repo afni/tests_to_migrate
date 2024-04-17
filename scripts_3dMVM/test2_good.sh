@@ -19,4 +19,4 @@ InFile='test2_good'
 -bsVars "group_bs" \
 -wsVars "group_ws" \
 -qVars "score,rt" \
--dataTable @dataTables/${InFile}.tsv
+-dataTable @data_dataTables/${InFile}.tsv

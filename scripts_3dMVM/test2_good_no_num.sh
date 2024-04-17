@@ -18,4 +18,4 @@ InFile='test2_good_no_num'
 -jobs 10 \
 -bsVars "group_bs" \
 -wsVars "group_ws" \
--dataTable @dataTables/${InFile}s.tsv
+-dataTable @data_dataTables/${InFile}.tsv
