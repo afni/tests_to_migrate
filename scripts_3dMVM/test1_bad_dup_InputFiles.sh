@@ -18,4 +18,4 @@ InFile='test1_bad_dup_InputFiles'
 -jobs 10 \
 -bsVars "group*group2" \
 -qVars "score,rt" \
--dataTable @dataTables/${InFile}.tsv
+-dataTable @data_dataTables/${InFile}.tsv

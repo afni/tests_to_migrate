@@ -19,4 +19,4 @@ InFile='test1_bad_multi_vol_grid'
 -jobs 10 \
 -bsVars "group*group2" \
 -qVars "score,rt" \
--dataTable @dataTables/${InFile}.tsv
+-dataTable @data_dataTables/${InFile}.tsv

@@ -10,12 +10,12 @@ OutFolder='results'
 cd ${BaseFolder}
 
 ## prefix
-OutFile='test1_bad_subj_dup_MVM'
-InFile='test1_bad_subj_dup'
+OutFile='test1_warn_subj_dup_MVM'
+InFile='test1_warn_subj_dup'
 
 3dMVM -overwrite \
 -prefix ${OutFolder}/${OutFile}.nii.gz \
 -jobs 10 \
 -bsVars "group*group2" \
 -qVars "score,rt" \
--dataTable @dataTables/${InFile}.tsv
+-dataTable @data_dataTables/${InFile}.tsv
