@@ -13,6 +13,7 @@ test1+AF8-bad+AF8-multi+AF8-vol+AF8-grid+AF8-5x5x5.tsv	11	bs	bad	multi vol and g
 test1+AF8-bad+AF8-multi+AF8-vol+AF8-grid.tsv	11	bs	bad	multi vol and grid	1 and 9 multi vol. 2 and 10 bad grid
 test1+AF8-bad+AF8-multi+AF8-vol+AF8-5x5x5.tsv	11	bs	bad	2 multi+AC0-volume dsets	row 1 and 9 have 2 volumes in the InputFIle data set 5x5x5 version
 test1+AF8-bad+AF8-multi+AF8-vol.tsv	11	bs	bad	2 multi+AC0-volume dsets	row 1 and 9 have 2 volumes in the InputFIle data set
+test1+AF8-bad+AF8-not+AF8-rect+AF8-5x5x5.tsv	11	bs	bad	missing 3 entries	missing entries line 4 8 10 but has tab delimiters entact 5x5x5 version
 test1+AF8-bad+AF8-not+AF8-rect.tsv	11	bs	bad	missing 3 entries	missing entries line 4 8 10 but has tab delimiters entact
 test1+AF8-bad+AF8-Subj+AF8-misspelled.tsv	11	bs	bad	Subj column misspelled	NA
 test1+AF8-good+AF8-cmd.sh	11	bs	good	command line version	no data table. with slashes
