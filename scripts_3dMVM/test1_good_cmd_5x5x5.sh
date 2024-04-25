@@ -1,0 +1,32 @@
+#!/bin/bash
+
+##################################
+## 04/2024 Justin Rajendra
+## 3dMVM testing
+
+## where is everything?
+BaseFolder='../'
+OutFolder='results'
+cd ${BaseFolder}
+
+OutFile='test1_good_cmd_5x5x5_MVM'
+
+3dMVM -overwrite \
+-prefix ${OutFolder}/${OutFile}.nii.gz \
+-jobs 10 \
+-bsVars "group*group2" \
+-qVars "score,rt" \
+-dataTable \
+Subj	score	group	group2	group3	rt	consented	handedness	race	InputFile \
+subj-0044	1	A	A	A	10.0045	TRUE	1	1	subjects_5x5x5/subj-0044.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0046	2	B	B	B	11.0045	FALSE	2	2	subjects_5x5x5/subj-0046.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0049	3	A	C	A	12.0045	TRUE	1	3	subjects_5x5x5/subj-0049.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0053	4	B	A	B	13.0045	FALSE	2	4	subjects_5x5x5/subj-0053.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0060	5	A	B	A	14.0045	TRUE	1	1	subjects_5x5x5/subj-0060.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0061	6	B	C	B	15.0045	FALSE	1	2	subjects_5x5x5/subj-0061.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0064	7	A	A	A	16.0045	TRUE	1	3	subjects_5x5x5/subj-0064.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0073	8	B	B	B	17.0045	FALSE	2	4	subjects_5x5x5/subj-0073.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0075	9	A	C	A	18.0045	FALSE	1	1	subjects_5x5x5/subj-0075.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0076	10	B	A	B	19.0045	FALSE	1	2	subjects_5x5x5/subj-0076.rest.cg25.3mm.5x5x5.nii.gz \
+subj-0079	11	A	B	A	20.0045	TRUE	2	3	subjects_5x5x5/subj-0079.rest.cg25.3mm.5x5x5.nii.gz
+

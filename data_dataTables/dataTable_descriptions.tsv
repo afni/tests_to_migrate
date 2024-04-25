@@ -19,7 +19,12 @@ test1_bad_Subj_misspelled_5x5x5.tsv	11	bs	bad	Subj column misspelled	5x5x5 voxel
 test1_bad_Subj_misspelled.tsv	11	bs	bad	Subj column misspelled	NA
 test1_good_cmd.sh	11	bs	good	command line version	no data table. with slashes
 test1_good_warnings.tsv	11	bs	warnings	outliers and factors	Subj has numerics. Score and rt have outliers. Handedness has 1 alpha character.
+test1_good_5x5x5.tsv	11	bs	good	NA	5x5x5 voxel version
 test1_good.tsv	11	bs	good	NA	NA
+test1_good_slashes_5x5x5.tsv	11	bs	good	NA	Slashes at the end of the lines. 5x5x5 version
+test1_good_slashes.tsv	11	bs	good	NA	Slashes at the end of the lines.
+test1_good_slashes_no_last_5x5x5.tsv	11	bs	good	NA	Slashes at the end of the lines. no slash at the end of the last line. 5X5x5 version
+test1_good_slashes_no_last.tsv	11	bs	good	NA	Slashes at the end of the lines.no slash at the end of the last line.
 test1_warn_subj_dup.tsv	11	bs	warnings	different obs per subject	some subjects have more observations. Triggers a warning, but 3dMVM crashes in the end
 test1_warn_with_spaces.csv	11	bs	warnings	should fail	the comma space gives different elements
 test1_warn_with_spaces.tsv	11	bs	warnings	should fail	CSV but labeled as TSV
