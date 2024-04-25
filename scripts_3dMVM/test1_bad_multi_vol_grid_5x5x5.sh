@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##################################
-## 05/2023 Justin Rajendra
+## 4/2024 Justin Rajendra
 ## 3dMVM testing
 
 ## where is everything?
@@ -10,8 +10,8 @@ OutFolder='results'
 cd ${BaseFolder}
 
 ## prefix
-OutFile='test1_bad_multi_vol_grid_MVM'
-InFile='test1_bad_multi_vol_grid'
+OutFile='test1_bad_multi_vol_grid_5x5x5_MVM'
+InFile='test1_bad_multi_vol_grid_5x5x5'
 
 
 3dMVM -overwrite \
