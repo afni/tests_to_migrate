@@ -18,6 +18,7 @@ test1_bad_not_rect.tsv	11	bs	bad	missing 3 entries	missing entries line 4 8 10 b
 test1_bad_Subj_misspelled_5x5x5.tsv	11	bs	bad	Subj column misspelled	5x5x5 voxel version
 test1_bad_Subj_misspelled.tsv	11	bs	bad	Subj column misspelled	NA
 test1_good_cmd.sh	11	bs	good	command line version	no data table. with slashes
+test1_good_warnings_5x5x5.tsv	11	bs	warnings	outliers and factors	Subj has numerics. Score and rt have outliers. Handedness has 1 alpha character. 5x5x5 version
 test1_good_warnings.tsv	11	bs	warnings	outliers and factors	Subj has numerics. Score and rt have outliers. Handedness has 1 alpha character.
 test1_good_5x5x5.tsv	11	bs	good	NA	5x5x5 voxel version
 test1_good.tsv	11	bs	good	NA	NA
