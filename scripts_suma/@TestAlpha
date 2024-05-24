@@ -22,8 +22,22 @@ fi
 # Test function
 AlphaTestFunction() {
 
+	echo "Number of arguments to function = " + $#
+
 	directory=$1
 	arguments=$2
+
+	if [ "$#" -gt 2 ]; then
+             export threshold1=$3
+	else
+             export threshold1=0.97
+	fi
+
+	if [ "$#" -gt 3 ]; then
+             export threshold2=$4
+	else
+             export threshold2=1
+	fi
 
          # Variable transparency
          set l = `prompt_user -pause \
@@ -38,17 +52,17 @@ AlphaTestFunction() {
 
          DriveSuma -com  viewer_cont -key '.'
          DriveSuma -com  viewer_cont -key '.'
-         DriveSuma -com  viewer_cont -key '.'
          DriveSuma -com  viewer_cont -key 'ctrl+s'
          DriveSuma -com surf_cont -view_surf_cont y
          DriveSuma -echo_edu   \
                   -com surf_cont -load_dset stats.FT.surf.lh.niml.dset
+         DriveSuma -com surf_cont -switch_cmap Spectrum:red_to_blue
 
          set l = `prompt_user -pause \
                  '@DriveSuma \n\
-                 Press OK to set Threshold'`
+                 Press OK to set Threshold to '$threshold1`
  
-        THR=15
+        THR=$threshold1
         DriveSuma -com  surf_cont -T_val $THR
  
          set l = `prompt_user -pause \
@@ -98,8 +112,8 @@ AlphaTestFunction() {
  
         set l = `prompt_user -pause \
                  '@DriveSuma \n\
-                 Press OK to set Threshold to 6'`
-        THR=6
+                 Press OK to set Threshold to '$threshold2`
+        THR=$threshold2
         DriveSuma -com  surf_cont -T_val $THR
  
         set l = `prompt_user -pause \
@@ -130,6 +144,18 @@ AlphaTestFunction() {
 	DriveSuma -com kill_suma
 
 }
+
+ AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
+ 	"-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_lh.spec -sv FT.surf_SurfVol_Alnd_Exp+orig" 16 5
+
+ AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT/SUMA" \
+	 "-spec $HOME/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec" 0.5 0.8
+
+ AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT/SUMA" \
+	 "-spec FT_both.spec  -sv roi1.lh.s2v.roi+orig" 0.5 0.5
+
+ AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT/SUMA" \
+	 "-spec std.141.FT_both.spec -sv tuna.lh.s2v.roi+orig"
 
 AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT/FT.results" \
 	"-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_lh.spec -sv vr_base_min_outlier_unif_ts_ns_wt+orig"
@@ -185,17 +211,6 @@ AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT/SUMA" \
  AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT/SUMA" \ 
 	 "-spec FT_rh.spec -sv roi1.lh.s2v.roi+orig"
 
- AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
- 	"-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_lh.spec -sv FT.surf_SurfVol_Alnd_Exp+orig"
-
- AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT/SUMA" \
-	 "-spec $HOME/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec"
-
- AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT/SUMA" \
-	 "-spec FT_both.spec  -sv roi1.lh.s2v.roi+orig"
-
- AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT/SUMA" \ 
-	 "-spec std.141.FT_both.spec -sv tuna.lh.s2v.roi+orig"
 
  
  
