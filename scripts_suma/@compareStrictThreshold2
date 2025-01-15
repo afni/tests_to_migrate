@@ -19,10 +19,30 @@ if [ "$#" -ne 0 ]; then
 #	echo 'PATH = ' $PATH
 fi
 
+# Prompt function
+PromptUser(){
+     opts=(
+         -buttons Ok:0,"Next sample":1,"End program":2
+         -default Ok
+         -nearmouse
+         # -timeout 1000000000
+         $1
+     )
+
+     xmessage "${opts[@]}"
+
+     case $? in
+         0) response=ok;;
+         1) response=next_sample;;
+         2) response=end_program;;
+         *) echo "something else happened"; exit 1;;
+     esac
+
+     echo $response
+}
+
 # Test function
 AlphaTestFunction() {
-
-	echo "Number of arguments to function = " + $#
 
 	directory=$1
 	dataSet=$2
@@ -40,16 +60,13 @@ AlphaTestFunction() {
              export threshold2=1
 	fi
 
-         # Variable transparency
-         set l = `prompt_user -pause \
-                 '@DriveSuma \n\
-                 Press OK for Variable transparency'`
-
-	 echo 'l = ' $l
-
-         set l = `prompt_user -pause \
-                 '@DriveSuma \n\
-                 Press OK for Variable transparency'`
+        # Variable transparency
+	promptReturn=$(PromptUser "Press OK to run SUMA")
+        if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+        then
+          echo $promptReturn
+	  exit
+        fi
 
 	 echo $directory
 	 echo $directory
@@ -66,27 +83,47 @@ AlphaTestFunction() {
          DriveSuma -echo_edu   \
                   -com surf_cont -load_dset $dataSet
 
-         set l = `prompt_user -pause \
-                 '@DriveSuma \n\
-                 Press OK to set colormap to Spectrum:red_to_blue'`
- 
+	 # Set colormap to Spectrum:red_to_blue
+	 promptReturn=$(PromptUser "Press OK to set colormap to Spectrum:red_to_blue")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           DriveSuma -com kill_suma
+           echo $promptReturn
+	   exit
+         fi
+
          DriveSuma -com surf_cont -switch_cmap Spectrum:red_to_blue
 
-         set l = `prompt_user -pause \
-                 '@DriveSuma \n\
-                 Press OK to set Threshold to '$threshold1`
- 
+	 # Set Threshold to '$threshold1`
+	 promptReturn=$(PromptUser "Press OK to set threshold to $threshold1")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           DriveSuma -com kill_suma
+           echo $promptReturn
+	   exit
+         fi
+
         THR=$threshold1
         DriveSuma -com  surf_cont -T_val $THR
  
-         set l = `prompt_user -pause \
-                 '@DriveSuma \n\
-                 Press OK to see Beta'`
+	 # See Beta
+	 promptReturn=$(PromptUser "Press OK to see Beta")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
         DriveSuma -com surf_cont -SET_FUNC_BOXED yes
  
-         set l = `prompt_user -pause \
-                 '@DriveSuma \n\
-                 Press OK to see Alpha'`
+	 # See alpha
+	 promptReturn=$(PromptUser "Press OK to see Alpha")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
         DriveSuma -com surf_cont -SET_FUNC_ALPHA yes
  
 #         set l = `prompt_user -pause \
@@ -119,56 +156,147 @@ AlphaTestFunction() {
 #                Press OK to toggle |T| off'`
 #       DriveSuma -com surf_cont -T_abs n
  
-       set l = `prompt_user -pause \
-                '@DriveSuma \n\
-                Please close suma and press OK to continue'`
- 
-       # DriveSuma -com kill_suma
+	 # Set colormap to Spectrum:red_to_blue
+	 promptReturn=$(PromptUser "Please close suma and press OK to continue")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
 
+       DriveSuma -com kill_suma
 }
 
-# AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
- #       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv FT.surf_SurfVol_Alnd_Exp+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"stats.FT.surf.lh.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv FT.surf_SurfVol_Alnd_Exp+orig" 21 30)
+        if [[ $returnValue == *end_program ]] 
+	then
+           exit
+         fi
 
-# AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
- #       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"stats.FT.surf.lh.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 21 30)
+        if [[ $returnValue == *end_program ]] 
+        then
+           exit
+         fi
 
-# AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "errts.FT.surf.lh.niml.dset" \
- #       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 1.76 3.00
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"errts.FT.surf.lh.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 1.76 3.00)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
-# AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "fitts.FT.surf.lh.niml.dset" \
- #       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 101 102
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"fitts.FT.surf.lh.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 101 102)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
-# AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "pb03.FT.surf.lh.r01.surf.niml.dset" \
- #       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 1921 2000
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"pb03.FT.surf.lh.r01.surf.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 1921 2000)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
-# AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "pb03.FT.surf.lh.r02.surf.niml.dset" \
- #       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 1921 2000
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"pb03.FT.surf.lh.r02.surf.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 1921 2000)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
-# AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "pb04.FT.surf.lh.r02.blur.niml.dset" \
-#       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 1921 2000
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"pb04.FT.surf.lh.r02.blur.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 1921 2000)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
- # AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "ipb05.FT.surf.lh.r02.scale.niml.dset" \
-  #      "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 1921 2000
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"ipb05.FT.surf.lh.r02.scale.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 1921 2000)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
- # AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "TSNR.FT.surf.lh.niml.dset" \
-  #      "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv anat_final.FT.surf+orig" 1921 2000
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"TSNR.FT.surf.lh.niml.dset" \
+        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv anat_final.FT.surf+orig" 1921 2000)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
- # AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
-  #     "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv FT_anat+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+       "stats.FT.surf.lh.niml.dset" \
+       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+       -sv FT_anat+orig" 21 30)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+         fi
 
- #AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
- #      "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv FT.surf_SurfVol_Alnd_Exp+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"stats.FT.surf.lh.niml.dset" \
+      "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+      -sv FT.surf_SurfVol_Alnd_Exp+orig" 21 30)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+       fi
 
- # AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
-#       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv pb00.FT.surf.r02.tcat+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+       "stats.FT.surf.lh.niml.dset" \
+       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+       -sv pb00.FT.surf.r02.tcat+orig" 21 30)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+       fi
 
- # AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
-  #     "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv pb02.FT.surf.r02.volreg+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"stats.FT.surf.lh.niml.dset" \
+       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+       -sv pb02.FT.surf.r02.volreg+orig" 21 30)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+       fi
 
- # AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
-  #     "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv vr_base_min_outlier_ts_ns+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"stats.FT.surf.lh.niml.dset" \
+	"-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+       	-sv vr_base_min_outlier_ts_ns+orig" 21 30)
+        if [[ $returnValue == *end_program ]] 
+          then
+           exit
+        fi
 
- AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" "stats.FT.surf.lh.niml.dset" \
-       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec -sv vr_base_min_outlier_ts_ns_wt+orig" 21 30
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+	"stats.FT.surf.lh.niml.dset" \
+	"-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	-sv vr_base_min_outlier_ts_ns_wt+orig" 21 30)
+
 
