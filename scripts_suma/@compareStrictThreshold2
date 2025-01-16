@@ -126,38 +126,67 @@ AlphaTestFunction() {
          fi
         DriveSuma -com surf_cont -SET_FUNC_ALPHA yes
  
-#         set l = `prompt_user -pause \
-#                 '@DriveSuma \n\
-#                 Press OK to raise threshold '`
-#        DriveSuma -com  surf_cont -T_val 35
+	# Multiply input threshold by 3/2
+         THR=$(((($threshold1*3) / 2) + (($threshold1*3) % 2 > 0)))	
+	 promptReturn=$(PromptUser "Press OK to raise threshold to $THR")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+	echo 'New threshold is ' $THR
+        DriveSuma -com  surf_cont -T_val $THR
+
+	# Multiply input threshold by 2/3
+         THR=$(((($threshold1*2) / 3) + (($threshold1*2) % 3 > 0)))	
+	 promptReturn=$(PromptUser "Press OK to lower threshold to $THR")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com  surf_cont -T_val $THR 
  
-#         set l = `prompt_user -pause \
-#                 '@DriveSuma \n\
-#                 Press OK to lower threshold '`
-#        DriveSuma -com  surf_cont -T_val 10 
+	 promptReturn=$(PromptUser "Press OK to change I range")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -I_range 0 1.0
  
-#        set l = `prompt_user -pause \
-#                 '@DriveSuma \n\
-#                 Press OK to change I range'`
-#        DriveSuma -com surf_cont -I_range 0 1.0
+	 promptReturn=$(PromptUser "Press OK to switch I(ntensity) to 1")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+       DriveSuma -com surf_cont -I_sb 1
  
-#       set l = `prompt_user -pause \
-#                '@DriveSuma \n\
-#                Press OK to switch I(ntensity) to 1'`
-#       DriveSuma -com surf_cont -I_sb 1
+	 promptReturn=$(PromptUser "Press OK to switch T(threshold) to 2")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+       DriveSuma -com surf_cont -I_sb 1
  
-#       set l = `prompt_user -pause \
-#                '@DriveSuma \n\
-#                Press OK to switch T(threshold) to 2'`
-#       DriveSuma -com surf_cont -I_sb 1
+	 promptReturn=$(PromptUser "Press OK to toggle |T| off")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+       DriveSuma -com surf_cont -T_abs n
  
-#       set l = `prompt_user -pause \
-#                '@DriveSuma \n\
-#                Press OK to toggle |T| off'`
-#       DriveSuma -com surf_cont -T_abs n
- 
-	 # Set colormap to Spectrum:red_to_blue
-	 promptReturn=$(PromptUser "Please close suma and press OK to continue")
+	 # End processing of current sample and of suma session
+	 promptReturn=$(PromptUser "Please press OK  to close suma and finish processing this sample")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
          then
            echo $promptReturn
