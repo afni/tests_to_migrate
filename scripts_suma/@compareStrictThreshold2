@@ -12,10 +12,20 @@
 # search path, is used.
 
 # @global_parse `basename $0` "$*" ; if ($status) exit 0
+#
+# NPB="-npb `afni -available_npb_quiet` -pif $PIF -echo_edu"
 
 # Get path to version of suma being used
 if [ "$#" -ne 0 ]; then
 	export PATH=$1:$PATH
+fi
+# echo "PATH = " $PATH
+export DIRECTORY=$(eval echo "$1") # Make sure directory includes full home directory path rather than ~
+echo "Working directory = $DIRECTORY"
+
+if [ ! -d "$DIRECTORY" ]; then
+  echo "$DIRECTORY does not exist."
+  exit
 fi
 
 # Prompt function.  Returns whether user wants to continue, skp to next sample
@@ -25,7 +35,6 @@ PromptUser(){
          -buttons Ok:0,"Next sample":1,"End program":2
          -default Ok
          -nearmouse
-         # -timeout 1000000000
          $1
      )
 
@@ -48,6 +57,11 @@ AlphaTestFunction() {
 	dataSet=$2
 	arguments=$3
 
+    local LOCAL="directory"
+    echo "$LOCAL"
+    echo "++++++++++++ Processing $directory/$dataSet" >&2
+
+
         # Record fourth argument if avialable.  Otherwise use defalt lower threshold 
 	if [ "$#" -gt 3 ]; then
              export threshold1=$4
@@ -61,6 +75,17 @@ AlphaTestFunction() {
 	else
              export threshold2=1
 	fi
+
+	# echo "******* Processing $directory / $dataSet"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
+	echo "+++++++++++++ Processing"
 
         # Variable transparency
 	promptReturn=$(PromptUser "Press OK to run SUMA")
@@ -96,6 +121,36 @@ AlphaTestFunction() {
          fi
          DriveSuma -com surf_cont -switch_cmap Spectrum:red_to_blue
 
+	 # Turn off background colormap (Doesn't seem to work)
+	 promptReturn=$(PromptUser "Press OK to trun off background colormap")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           DriveSuma -com kill_suma
+           echo $promptReturn
+	   exit
+         fi
+	 DriveSuma -com viewer_cont -key 'b'
+
+       # Toggle "sym I" off
+	 promptReturn=$(PromptUser "Press OK to toggle 'sym I' off")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+       DriveSuma -com surf_cont -I_range 0.5 3.5
+
+       # Toggle "sym I" on
+	 promptReturn=$(PromptUser "Press OK to toggle 'sym I' on")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+       DriveSuma -com surf_cont -I_range $threshold1
+
 	 # Set Threshold to '$threshold1`
 	 promptReturn=$(PromptUser "Press OK to set threshold to $threshold1")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
@@ -128,6 +183,26 @@ AlphaTestFunction() {
 	   exit
          fi
         DriveSuma -com surf_cont -SET_FUNC_ALPHA yes
+ 
+	 # Set alpha model to LINEAR
+	 promptReturn=$(PromptUser "Press OK to set Alpha model to LINEAR")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -SET_FUNC_ALPHA Linear
+ 
+	 # Set alpha model to  QUADRATIC
+	 promptReturn=$(PromptUser "Press OK to set Alpha model to Quadratic")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -SET_FUNC_ALPHA Quadratic
  
 	# Multiply input threshold by 3/2
        #  THR=$(((($threshold1*3) / 2) + (($threshold1*3) % 2 > 0)))	
@@ -162,7 +237,7 @@ AlphaTestFunction() {
            DriveSuma -com kill_suma
 	   exit
          fi
-        DriveSuma -com surf_cont -I_range 0 1.0
+        DriveSuma -com surf_cont -I_range 0.5 1.4
 
        # Switch I(ntensity) to 1	
 	 promptReturn=$(PromptUser "Press OK to switch I(ntensity) to 1")
@@ -184,15 +259,35 @@ AlphaTestFunction() {
          fi
        DriveSuma -com surf_cont -I_sb 1
  
-       # Toggle |T| off
-	 promptReturn=$(PromptUser "Press OK to toggle |T| off")
+       # Switch I(ntensity) to 3	
+	 promptReturn=$(PromptUser "Press OK to switch I(ntensity) to 3")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
          then
            echo $promptReturn
            DriveSuma -com kill_suma
 	   exit
          fi
-       DriveSuma -com surf_cont -T_abs n
+       DriveSuma -com surf_cont -I_sb 3
+ 
+       # Switch T(threshold) to 4	
+	 promptReturn=$(PromptUser "Press OK to switch T(threshold) to 4")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+       DriveSuma -com surf_cont -I_sb 4
+ 
+       # Toggle "sym I" on
+	 promptReturn=$(PromptUser "Press OK to toggle 'sym I' on")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+       DriveSuma -com surf_cont -I_range 0.5
  
 	 # End processing of current sample and of suma session
 	 promptReturn=$(PromptUser "Please press OK  to close suma and finish processing this sample")
@@ -207,135 +302,135 @@ AlphaTestFunction() {
        DriveSuma -com kill_suma
 }
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv FT.surf_SurfVol_Alnd_Exp+orig" 21 30)
         if [[ $returnValue == *end_program ]] 
 	then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 21 30)
         if [[ $returnValue == *end_program ]] 
         then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"errts.FT.surf.lh.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 1.76 3.00)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"fitts.FT.surf.lh.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 101 102)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"pb03.FT.surf.lh.r01.surf.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 1921 2000)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"pb03.FT.surf.lh.r02.surf.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 1921 2000)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"pb04.FT.surf.lh.r02.blur.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 1921 2000)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"ipb05.FT.surf.lh.r02.scale.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 1921 2000)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"TSNR.FT.surf.lh.niml.dset" \
-        "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+        "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv anat_final.FT.surf+orig" 1921 2000)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
        "stats.FT.surf.lh.niml.dset" \
-       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+       "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
        -sv FT_anat+orig" 21 30)
         if [[ $returnValue == *end_program ]] 
           then
            exit
          fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
-      "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+      "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
       -sv FT.surf_SurfVol_Alnd_Exp+orig" 21 30)
         if [[ $returnValue == *end_program ]] 
           then
            exit
        fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
        "stats.FT.surf.lh.niml.dset" \
-       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+       "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
        -sv pb00.FT.surf.r02.tcat+orig" 21 30)
         if [[ $returnValue == *end_program ]] 
           then
            exit
        fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
-       "-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+       "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
        -sv pb02.FT.surf.r02.volreg+orig" 21 30)
         if [[ $returnValue == *end_program ]] 
           then
            exit
        fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
-	"-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	"-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
        	-sv vr_base_min_outlier_ts_ns+orig" 21 30)
         if [[ $returnValue == *end_program ]] 
           then
            exit
         fi
 
-returnValue=$(AlphaTestFunction "$HOME/AFNI_data6Old/FT_analysis/FT.surf.results" \
+returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
-	"-spec /home/peterlauren/AFNI_data6Old/FT_analysis/FT/SUMA/std.60.FT_both.spec \
+	"-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
 	-sv vr_base_min_outlier_ts_ns_wt+orig" 21 30)
 
 
