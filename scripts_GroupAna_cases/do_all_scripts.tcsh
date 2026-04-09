@@ -36,7 +36,7 @@ foreach dir ( ?.* )
    # rename any old results files to old.*
    set rfiles = ( `find . -name 'result.*' | cut -b3- ` )
    if ( $#rfiles > 0 ) then
-       echo "-- renaming $#rfiles results files to old..."
+       echo "-- renaming $#rfiles results files under $dir to old..."
        foreach file ( $rfiles )
           mv $file old.$file
        end
