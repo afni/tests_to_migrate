@@ -33,6 +33,17 @@ foreach dir ( ?.* )
    echo ""
    cd $dir
 
+   # rename any old results files to old.*
+   set rfiles = ( `find . -name 'result.*' | cut -b3- ` )
+   if ( $#rfiles > 0 ) then
+       echo "-- renaming $#rfiles results files to old..."
+       foreach file ( $rfiles )
+          mv $file old.$file
+       end
+       echo "-- done"
+       echo ""
+   endif
+
    foreach file ( run.*.txt )
       set label = `echo $file | cut -d . -f 2`
       if ( $file != run.$label.txt ) then
