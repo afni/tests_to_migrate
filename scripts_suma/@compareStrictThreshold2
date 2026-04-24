@@ -87,7 +87,7 @@ AlphaTestFunction() {
 	echo "+++++++++++++ Processing"
 	echo "+++++++++++++ Processing"
 
-        # Variable transparency
+        # Start suma
 	promptReturn=$(PromptUser "Press OK to run SUMA")
         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
         then
@@ -121,7 +121,7 @@ AlphaTestFunction() {
          fi
          DriveSuma -com surf_cont -switch_cmap Spectrum:red_to_blue
 
-	 # Turn off background colormap (Doesn't seem to work)
+	 # Turn off background colormap 
 	 promptReturn=$(PromptUser "Press OK to trun off background colormap")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
          then
