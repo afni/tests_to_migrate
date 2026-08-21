@@ -184,6 +184,16 @@ AlphaTestFunction() {
          fi
         DriveSuma -com surf_cont -SET_FUNC_ALPHA yes
  
+	 # DEBUG: Change view after setting beta
+	 promptReturn=$(PromptUser "Change view with DriveSuma")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+         DriveSuma -com  viewer_cont -key '.'
+
 	 # Set alpha model to LINEAR
 	 promptReturn=$(PromptUser "Press OK to set Alpha model to LINEAR")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
