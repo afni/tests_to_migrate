@@ -174,6 +174,110 @@ AlphaTestFunction() {
          fi
         DriveSuma -com surf_cont -SET_FUNC_BOXED yes
  
+       # Load (and switch to) TSNT.FT.surf.lh.niml.dset
+	 promptReturn=$(PromptUser "Press OK to load TSNT.FT.surf.lh.niml.dset")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+	 DriveSuma -com surf_cont -surf_label std.60.lh.smoothwm.gii -load_dset "$PWD/TSNR.FT.surf.lh.niml.dset"
+
+	 # Apply intput threshold
+        THR=$threshold2
+        DriveSuma -com  surf_cont -T_val $THR
+ 
+	 # See Beta
+	 promptReturn=$(PromptUser "Press OK to see Beta")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -SET_FUNC_BOXED yes
+ 
+       # Load (and switch to) stats.FT.surf.lh.niml.dset
+	 promptReturn=$(PromptUser "Press OK to load TSNT.FT.surf.lh.niml.dset")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+	 DriveSuma -com surf_cont -surf_label std.60.lh.smoothwm.gii -load_dset "$PWD/stats.FT.surf.lh.niml.dset"
+
+	 # See Beta
+	 promptReturn=$(PromptUser "Press OK to see Beta")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -SET_FUNC_BOXED yes
+ 
+       # Load (and switch to) TSNT.FT.surf.lh.niml.dset
+	 promptReturn=$(PromptUser "Press OK to load TSNT.FT.surf.lh.niml.dset")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+	 DriveSuma -com surf_cont -surf_label std.60.lh.smoothwm.gii -load_dset "$PWD/TSNR.FT.surf.lh.niml.dset"
+
+	 # See Beta
+	 promptReturn=$(PromptUser "Press OK to see Beta")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -SET_FUNC_BOXED yes
+ 
+       # Load (and switch to) stats.FT.surf.lh.niml.dset
+	 promptReturn=$(PromptUser "Press OK to load TSNT.FT.surf.lh.niml.dset")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+	 DriveSuma -com surf_cont -surf_label std.60.lh.smoothwm.gii -load_dset "$PWD/stats.FT.surf.lh.niml.dset"
+
+	 # See Beta
+	 promptReturn=$(PromptUser "Press OK to see Beta")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -SET_FUNC_BOXED yes
+ 
+       # Load (and switch to) TSNT.FT.surf.lh.niml.dset
+	 promptReturn=$(PromptUser "Press OK to load TSNT.FT.surf.lh.niml.dset")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+	 DriveSuma -com surf_cont -surf_label std.60.lh.smoothwm.gii -load_dset "$PWD/TSNR.FT.surf.lh.niml.dset"
+
+	 # See Beta
+	 promptReturn=$(PromptUser "Press OK to see Beta")
+         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
+         then
+           echo $promptReturn
+           DriveSuma -com kill_suma
+	   exit
+         fi
+        DriveSuma -com surf_cont -SET_FUNC_BOXED yes
+ 
 	 # See alpha
 	 promptReturn=$(PromptUser "Press OK to see Alpha")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
@@ -184,16 +288,6 @@ AlphaTestFunction() {
          fi
         DriveSuma -com surf_cont -SET_FUNC_ALPHA yes
  
-	 # DEBUG: Change view after setting beta
-	 promptReturn=$(PromptUser "Change view with DriveSuma")
-         if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
-         then
-           echo $promptReturn
-           DriveSuma -com kill_suma
-	   exit
-         fi
-         DriveSuma -com  viewer_cont -key '.'
-
 	 # Set alpha model to LINEAR
 	 promptReturn=$(PromptUser "Press OK to set Alpha model to LINEAR")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
@@ -315,7 +409,7 @@ AlphaTestFunction() {
 returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
         "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
-	-sv FT.surf_SurfVol_Alnd_Exp+orig" 21 30)
+	-sv FT.surf_SurfVol_Alnd_Exp+orig" 21 266) # thresholds are 21 and 266
         if [[ $returnValue == *end_program ]] 
 	then
            exit
@@ -324,7 +418,7 @@ returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 returnValue=$(AlphaTestFunction "$HOME/AFNI_data6/FT_analysis/FT.surf.results" \
 	"stats.FT.surf.lh.niml.dset" \
         "-spec $HOME/AFNI_data6/FT_analysis/FT/SUMA/std.60.FT_both.spec \
-	-sv anat_final.FT.surf+orig" 21 30)
+	-sv anat_final.FT.surf+orig" 21 266) # thresholds are 21 and 266
         if [[ $returnValue == *end_program ]] 
         then
            exit
