@@ -199,7 +199,7 @@ AlphaTestFunction() {
         DriveSuma -com surf_cont -SET_FUNC_BOXED yes
  
        # Load (and switch to) stats.FT.surf.lh.niml.dset
-	 promptReturn=$(PromptUser "Press OK to load TSNT.FT.surf.lh.niml.dset")
+	 promptReturn=$(PromptUser "Press OK to load stats.FT.surf.lh.niml.dset")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
          then
            echo $promptReturn
@@ -239,7 +239,7 @@ AlphaTestFunction() {
         DriveSuma -com surf_cont -SET_FUNC_BOXED yes
  
        # Load (and switch to) stats.FT.surf.lh.niml.dset
-	 promptReturn=$(PromptUser "Press OK to load TSNT.FT.surf.lh.niml.dset")
+	 promptReturn=$(PromptUser "Press OK to load stats.FT.surf.lh.niml.dset")
          if [ $promptReturn == 'next_sample' ] || [ $promptReturn == 'end_program' ]
          then
            echo $promptReturn
